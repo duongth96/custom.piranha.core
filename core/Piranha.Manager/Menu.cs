@@ -35,6 +35,16 @@ namespace Piranha.Manager
                         Policy = Permission.Pages,
                         Css = "fas fa-copy"
                     },
+
+                    new MenuItem
+                    {
+                        InternalId = "Post",
+                        Name = "Post",
+                        Route = "~/manager/post",
+                        Policy = Permission.Pages,
+                        Css = "fas fa-copy"
+                    },
+
                     new MenuItem
                     {
                         InternalId = "Media",

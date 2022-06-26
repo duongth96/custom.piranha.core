@@ -6,9 +6,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceRoot}/examples/RazorWeb/bin/Debug/net5.0/RazorWeb.dll",
+            "program": "${workspaceRoot}/examples/MvcWeb/bin/Debug/net6.0/MvcWeb.dll",
             "args": [],
-            "cwd": "${workspaceRoot}/examples/RazorWeb",
+            "cwd": "${workspaceRoot}/examples/MvcWeb",
             "stopAtEntry": false,
             "internalConsoleOptions": "openOnSessionStart",
             "launchBrowser": {
