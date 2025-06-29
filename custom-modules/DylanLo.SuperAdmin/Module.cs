@@ -9,10 +9,7 @@ public class Module : IModule
 {
     private readonly List<PermissionItem> _permissions = new List<PermissionItem>
     {
-        new PermissionItem { Name = Permissions.DylanLo.SuperAdmin, Title = "List DylanLo.SuperAdmin content", Category = "DylanLo.SuperAdmin", IsInternal = true },
-        new PermissionItem { Name = Permissions.DylanLo.SuperAdminAdd, Title = "Add DylanLo.SuperAdmin content", Category = "DylanLo.SuperAdmin", IsInternal = true },
-        new PermissionItem { Name = Permissions.DylanLo.SuperAdminEdit, Title = "Edit DylanLo.SuperAdmin content", Category = "DylanLo.SuperAdmin", IsInternal = true },
-        new PermissionItem { Name = Permissions.DylanLo.SuperAdminDelete, Title = "Delete DylanLo.SuperAdmin content", Category = "DylanLo.SuperAdmin", IsInternal = true }
+        new PermissionItem { Name = Permissions.DylanLoSuperAdmin, Title = "DylanLo.SuperAdmin content", Category = "DylanLo.SuperAdmin", IsInternal = true }
     };
 
     /// <summary>
@@ -65,7 +62,7 @@ public class Module : IModule
             InternalId = "DylanLo.SuperAdminStart",
             Name = "Module Start",
             Route = "~/manager/dylanlo.superadmin",
-            Policy = Permissions.DylanLo.SuperAdmin,
+            Policy = Permissions.DylanLoSuperAdmin,
             Css = "fas fa-box"
         });
     }

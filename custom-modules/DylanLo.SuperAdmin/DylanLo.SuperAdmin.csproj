@@ -16,4 +16,9 @@
     <EmbeddedResource Include="assets\dist\**\*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="assets\dist\css\" />
+    <Folder Include="assets\dist\js\" />
+  </ItemGroup>
+
 </Project>
