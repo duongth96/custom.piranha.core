@@ -16,4 +16,15 @@
     <EmbeddedResource Include="assets\dist\**\*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="assets\dist\blocks\" />
+    <Folder Include="assets\dist\css\" />
+    <Folder Include="assets\dist\js\" />
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\core\Piranha.AttributeBuilder\Piranha.AttributeBuilder.csproj" />
+  </ItemGroup>
+
 </Project>
