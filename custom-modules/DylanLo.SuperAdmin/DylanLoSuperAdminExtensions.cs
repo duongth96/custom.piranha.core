@@ -5,16 +5,16 @@ using Piranha;
 using Piranha.AspNetCore;
 using DylanLo.SuperAdmin;
 
-public static class DylanLo.SuperAdminExtensions
+public static class DylanLoSuperAdminExtensions
 {
     /// <summary>
     /// Adds the DylanLo.SuperAdmin module.
     /// </summary>
     /// <param name="serviceBuilder"></param>
     /// <returns></returns>
-    public static PiranhaServiceBuilder UseDylanLo.SuperAdmin(this PiranhaServiceBuilder serviceBuilder)
+    public static PiranhaServiceBuilder UseDylanLoSuperAdmin(this PiranhaServiceBuilder serviceBuilder)
     {
-        serviceBuilder.Services.AddDylanLo.SuperAdmin();
+        serviceBuilder.Services.AddDylanLoSuperAdmin();
 
         return serviceBuilder;
     }
@@ -24,9 +24,9 @@ public static class DylanLo.SuperAdminExtensions
     /// </summary>
     /// <param name="applicationBuilder">The current application builder</param>
     /// <returns>The builder</returns>
-    public static PiranhaApplicationBuilder UseDylanLo.SuperAdmin(this PiranhaApplicationBuilder applicationBuilder)
+    public static PiranhaApplicationBuilder UseDylanLoSuperAdmin(this PiranhaApplicationBuilder applicationBuilder)
     {
-        applicationBuilder.Builder.UseDylanLo.SuperAdmin();
+        applicationBuilder.Builder.UseDylanLoSuperAdmin();
 
         return applicationBuilder;
     }
@@ -36,7 +36,7 @@ public static class DylanLo.SuperAdminExtensions
     /// </summary>
     /// <param name="services">The current service collection</param>
     /// <returns>The services</returns>
-    public static IServiceCollection AddDylanLo.SuperAdmin(this IServiceCollection services)
+    public static IServiceCollection AddDylanLoSuperAdmin(this IServiceCollection services)
     {
         // Add the DylanLo.SuperAdmin module
         Piranha.App.Modules.Register<Module>();
@@ -45,30 +45,9 @@ public static class DylanLo.SuperAdminExtensions
         services.AddAuthorization(o =>
         {
             // DylanLo.SuperAdmin policies
-            o.AddPolicy(Permissions.DylanLo.SuperAdmin, policy =>
+            o.AddPolicy(Permissions.DylanLoSuperAdmin, policy =>
             {
-                policy.RequireClaim(Permissions.DylanLo.SuperAdmin, Permissions.DylanLo.SuperAdmin);
-            });
-
-            // DylanLo.SuperAdmin add policy
-            o.AddPolicy(Permissions.DylanLo.SuperAdminAdd, policy =>
-            {
-                policy.RequireClaim(Permissions.DylanLo.SuperAdmin, Permissions.DylanLo.SuperAdmin);
-                policy.RequireClaim(Permissions.DylanLo.SuperAdminAdd, Permissions.DylanLo.SuperAdminAdd);
-            });
-
-            // DylanLo.SuperAdmin edit policy
-            o.AddPolicy(Permissions.DylanLo.SuperAdminEdit, policy =>
-            {
-                policy.RequireClaim(Permissions.DylanLo.SuperAdmin, Permissions.DylanLo.SuperAdmin);
-                policy.RequireClaim(Permissions.DylanLo.SuperAdminEdit, Permissions.DylanLo.SuperAdminEdit);
-            });
-
-            // DylanLo.SuperAdmin delete policy
-            o.AddPolicy(Permissions.DylanLo.SuperAdminDelete, policy =>
-            {
-                policy.RequireClaim(Permissions.DylanLo.SuperAdmin, Permissions.DylanLo.SuperAdmin);
-                policy.RequireClaim(Permissions.DylanLo.SuperAdminDelete, Permissions.DylanLo.SuperAdminDelete);
+                policy.RequireClaim(Permissions.DylanLoSuperAdmin, Permissions.DylanLoSuperAdmin);
             });
         });
 
@@ -81,7 +60,7 @@ public static class DylanLo.SuperAdminExtensions
     /// </summary>
     /// <param name="builder">The application builder</param>
     /// <returns>The builder</returns>
-    public static IApplicationBuilder UseDylanLo.SuperAdmin(this IApplicationBuilder builder)
+    public static IApplicationBuilder UseDylanLoSuperAdmin(this IApplicationBuilder builder)
     {
         return builder.UseStaticFiles(new StaticFileOptions
         {
@@ -95,7 +74,7 @@ public static class DylanLo.SuperAdminExtensions
     /// </summary>
     /// <param name="modules">The available modules</param>
     /// <returns>The DylanLo.SuperAdmin module</returns>
-    public static Module DylanLo.SuperAdmin(this Piranha.Runtime.AppModuleList modules)
+    public static Module DylanLoSuperAdmin(this Piranha.Runtime.AppModuleList modules)
     {
         return modules.Get<Module>();
     }

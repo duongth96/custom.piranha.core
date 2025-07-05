@@ -1,0 +1,96 @@
+@model DylanLo.SuperAdmin.Blocks.CodeEditorBlock
+@{
+    var hasHtml = !string.IsNullOrWhiteSpace(Model.Code.Value.Html);
+    var hasCss = !string.IsNullOrWhiteSpace(Model.Code.Value.Css);
+    var hasJs = !string.IsNullOrWhiteSpace(Model.Code.Value.Js);
+    var hasTitle = !string.IsNullOrWhiteSpace(Model.Title.Value);
+    var hasDescription = !string.IsNullOrWhiteSpace(Model.Description.Value);
+    var uniqueId = "code-" + Guid.NewGuid().ToString();
+}
+
+<div class="code-editor-block">
+    @if (hasTitle || hasDescription)
+    {
+        <div class="code-header">
+            @if (hasTitle)
+            {
+                <h3>@Model.Title.Value</h3>
+            }
+            @if (hasDescription)
+            {
+                <p>@Model.Description.Value</p>
+            }
+        </div>
+    }
+
+    @if (Model.RenderDirectly.Value)
+    {
+        <div id="@uniqueId" class="code-output">
+            @if (hasHtml)
+            {
+                @Html.Raw(Model.Code.Value.Html)
+            }
+        </div>
+
+        @if (hasCss)
+        {
+            <style>
+                @Html.Raw(Model.Code.Value.Css)
+            </style>
+        }
+
+        @if (hasJs)
+        {
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    @Html.Raw(Model.Code.Value.Js)
+                });
+            </script>
+        }
+    }
+    else
+    {
+        <div class="code-tabs">
+            <ul class="nav nav-tabs">
+                @if (hasHtml)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#@(uniqueId)-html">HTML</a>
+                    </li>
+                }
+                @if (hasCss)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link @(!hasHtml ? "active" : "")" data-toggle="tab" href="#@(uniqueId)-css">CSS</a>
+                    </li>
+                }
+                @if (hasJs)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link @(!hasHtml && !hasCss ? "active" : "")" data-toggle="tab" href="#@(uniqueId)-js">JavaScript</a>
+                    </li>
+                }
+            </ul>
+            <div class="tab-content">
+                @if (hasHtml)
+                {
+                    <div class="tab-pane fade show active" id="@(uniqueId)-html">
+                        <pre><code class="language-html">@Model.Code.Value.Html</code></pre>
+                    </div>
+                }
+                @if (hasCss)
+                {
+                    <div class="tab-pane fade @(!hasHtml ? "show active" : "")" id="@(uniqueId)-css">
+                        <pre><code class="language-css">@Model.Code.Value.Css</code></pre>
+                    </div>
+                }
+                @if (hasJs)
+                {
+                    <div class="tab-pane fade @(!hasHtml && !hasCss ? "show active" : "")" id="@(uniqueId)-js">
+                        <pre><code class="language-javascript">@Model.Code.Value.Js</code></pre>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

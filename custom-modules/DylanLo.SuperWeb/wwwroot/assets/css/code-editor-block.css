@@ -1,0 +1,142 @@
+/* Styles for the CodeEditorBlock frontend display */
+
+.code-editor-block {
+    margin: 2rem 0;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.code-editor-block .code-header {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.code-editor-block .code-header h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.25rem;
+    color: #212529;
+}
+
+.code-editor-block .code-header p {
+    margin-bottom: 0;
+    color: #6c757d;
+}
+
+/* Tabs styling */
+.code-editor-block .code-tabs {
+    background-color: #fff;
+}
+
+.code-editor-block .nav-tabs {
+    border-bottom: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+}
+
+.code-editor-block .nav-tabs .nav-link {
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    color: #6c757d;
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    transition: all 0.2s ease;
+}
+
+.code-editor-block .nav-tabs .nav-link:hover {
+    color: #495057;
+    border-bottom-color: #dee2e6;
+}
+
+.code-editor-block .nav-tabs .nav-link.active {
+    color: #007bff;
+    background-color: #fff;
+    border-bottom-color: #007bff;
+}
+
+/* Code content styling */
+.code-editor-block .tab-content {
+    padding: 0;
+}
+
+.code-editor-block pre {
+    margin: 0;
+    border-radius: 0;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.code-editor-block pre code {
+    padding: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    display: block;
+    background-color: #f8f9fa;
+    color: #212529;
+}
+
+/* Output styling */
+.code-editor-block .code-output {
+    padding: 1rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .code-editor-block {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    .code-editor-block .code-header {
+        background-color: #343a40;
+        border-bottom-color: #495057;
+    }
+    
+    .code-editor-block .code-header h3 {
+        color: #f8f9fa;
+    }
+    
+    .code-editor-block .code-header p {
+        color: #adb5bd;
+    }
+    
+    .code-editor-block .code-tabs {
+        background-color: #2b3035;
+    }
+    
+    .code-editor-block .nav-tabs {
+        background-color: #343a40;
+        border-bottom-color: #495057;
+    }
+    
+    .code-editor-block .nav-tabs .nav-link {
+        color: #adb5bd;
+    }
+    
+    .code-editor-block .nav-tabs .nav-link:hover {
+        color: #e9ecef;
+        border-bottom-color: #6c757d;
+    }
+    
+    .code-editor-block .nav-tabs .nav-link.active {
+        color: #0d6efd;
+        background-color: #2b3035;
+        border-bottom-color: #0d6efd;
+    }
+    
+    .code-editor-block pre code {
+        background-color: #212529;
+        color: #e9ecef;
+    }
+    
+    .code-editor-block .code-output {
+        background-color: #2b3035;
+        border-color: #495057;
+        color: #e9ecef;
+    }
+}

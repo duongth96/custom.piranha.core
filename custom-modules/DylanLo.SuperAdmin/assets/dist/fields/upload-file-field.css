@@ -1,0 +1,131 @@
+.upload-file-field {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.upload-file-field.is-dirty {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+}
+
+.upload-file-field .upload-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+}
+
+.upload-file-field .upload-progress {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+}
+
+.upload-file-field .upload-progress i {
+    margin-right: 0.5rem;
+}
+
+.upload-file-field .file-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.upload-file-field .file-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+    margin-right: 1rem;
+    font-size: 2rem;
+}
+
+.upload-file-field .file-preview i.fab.fa-css3-alt {
+    color: #264de4;
+}
+
+.upload-file-field .file-preview i.fab.fa-js {
+    color: #f7df1e;
+}
+
+.upload-file-field .file-details {
+    flex: 1;
+}
+
+.upload-file-field .file-name {
+    margin-bottom: 0.5rem;
+    word-break: break-all;
+}
+
+.upload-file-field .file-meta {
+    margin-bottom: 0.5rem;
+}
+
+.upload-file-field .file-meta .badge {
+    margin-right: 0.5rem;
+    text-transform: uppercase;
+}
+
+.upload-file-field .file-meta .text-muted {
+    margin-right: 1rem;
+    font-size: 0.875rem;
+}
+
+.upload-file-field .file-actions .btn {
+    margin-right: 0.5rem;
+}
+
+/* Dark theme support for Piranha dark mode */
+.dark-mode .upload-file-field {
+    border-color: #495057;
+    background-color: #343a40;
+}
+
+.dark-mode .upload-file-field .upload-placeholder {
+    background-color: #2b3035;
+}
+
+.dark-mode .upload-file-field .file-preview {
+    background-color: #2b3035;
+}
+
+.dark-mode .upload-file-field .upload-progress,
+.dark-mode .upload-file-field .file-meta .text-muted {
+    color: #adb5bd;
+}
+
+.dark-mode .upload-file-field .btn-secondary {
+    background-color: #495057;
+    border-color: #6c757d;
+    color: #e9ecef;
+}
+
+.dark-mode .upload-file-field .badge {
+    background-color: #495057;
+    color: #e9ecef;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    .upload-file-field .file-info {
+        flex-direction: column;
+    }
+    
+    .upload-file-field .file-preview {
+        margin-right: 0;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+    
+    .upload-file-field .file-actions .btn {
+        margin-bottom: 0.5rem;
+    }
+}

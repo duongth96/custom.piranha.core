@@ -1,0 +1,295 @@
+﻿.code-editor-field {
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+}
+
+.code-editor-field.is-dirty {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+}
+
+/* Dark theme support for Piranha dark mode */
+.dark-mode .code-editor-field {
+    border-color: #495057;
+    background-color: #343a40;
+}
+
+.dark-mode .code-editor-field .code-editor-tabs,
+.dark-mode .code-editor-field .code-editor-footer {
+    background-color: #343a40;
+    border-color: #495057;
+}
+
+.dark-mode .code-editor-field .nav-tabs .nav-link {
+    color: #adb5bd;
+}
+
+.dark-mode .code-editor-field .nav-tabs .nav-link.active {
+    background-color: #2b3035;
+    border-color: #495057 #495057 #2b3035;
+    color: #fff;
+}
+
+.dark-mode .code-editor-field .btn-light {
+    background-color: #495057;
+    border-color: #6c757d;
+    color: #e9ecef;
+}
+
+.dark-mode .code-editor-field .badge {
+    background-color: #495057;
+    color: #e9ecef;
+}
+
+.dark-mode .code-editor-field .text-muted {
+    color: #adb5bd !important;
+}
+
+.dark-mode .code-editor-field kbd {
+    background-color: #495057;
+    color: #e9ecef;
+    border-color: #6c757d;
+}
+
+.dark-mode .code-editor-field .CodeMirror {
+    background-color: #2b3035;
+    color: #e9ecef;
+    border-color: #495057;
+}
+
+.dark-mode .code-editor-field.empty .CodeMirror {
+    background-color: #343a40;
+}
+
+/* Dark mode syntax highlighting */
+.dark-mode .code-editor-field .cm-tag {
+    color: #f06292;
+}
+
+.dark-mode .code-editor-field .cm-attribute {
+    color: #64b5f6;
+}
+
+.dark-mode .code-editor-field .cm-string {
+    color: #aed581;
+}
+
+.dark-mode .code-editor-field .cm-property {
+    color: #f06292;
+}
+
+.dark-mode .code-editor-field .cm-variable {
+    color: #4fc3f7;
+}
+
+.dark-mode .code-editor-field .cm-comment {
+    color: #b0bec5;
+}
+
+.dark-mode .code-editor-field .cm-keyword {
+    color: #4fc3f7;
+}
+
+.code-editor-field .code-editor-tabs {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ced4da;
+}
+
+.code-editor-field .code-editor-content {
+    min-height: 300px;
+    flex: 1;
+}
+
+.code-editor-field .code-editor-pane {
+    height: 300px;
+}
+
+.code-editor-field .CodeMirror {
+    height: 100%;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    border-radius: 0;
+}
+
+.code-editor-field.empty .CodeMirror {
+    background-color: #f8f9fa;
+}
+
+/* CodeMirror syntax highlighting enhancements */
+.code-editor-field .cm-tag {
+    color: #905;
+}
+
+.code-editor-field .cm-attribute {
+    color: #2196F3;
+}
+
+.code-editor-field .cm-string {
+    color: #690;
+}
+
+.code-editor-field .cm-property {
+    color: #905;
+}
+
+.code-editor-field .cm-variable {
+    color: #07a;
+}
+
+.code-editor-field .cm-comment {
+    color: #999;
+    font-style: italic;
+}
+
+.code-editor-field .cm-keyword {
+    color: #07a;
+    font-weight: bold;
+}
+
+/* Custom styling for tabs */
+.code-editor-field .nav-tabs {
+    padding: 0.5rem 0.5rem 0 0.5rem;
+}
+
+.code-editor-field .nav-tabs .nav-link {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem 0.25rem 0 0;
+    font-size: 0.875rem;
+}
+
+.code-editor-field .nav-tabs .nav-link.active {
+    background-color: #fff;
+    border-color: #ced4da #ced4da #fff;
+}
+
+.code-editor-field .nav-tabs .nav-link i {
+    margin-right: 0.25rem;
+}
+
+.code-editor-field .nav-tabs .badge {
+    margin-left: 0.25rem;
+    font-size: 0.75rem;
+    vertical-align: middle;
+}
+
+.code-editor-field .code-editor-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #ced4da;
+    font-size: 0.75rem;
+}
+
+.code-editor-field .code-editor-footer kbd {
+    font-size: 0.7rem;
+    padding: 0.1rem 0.25rem;
+}
+
+/* Button styling */
+.code-editor-field .btn-group {
+    margin-right: 0.5rem;
+}
+
+.code-editor-field .btn-light {
+    background-color: #f8f9fa;
+    border-color: #ced4da;
+}
+
+/* CodeMirror fullscreen mode */
+.CodeMirror-fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: auto;
+    z-index: 9999;
+}
+
+/* Active line highlighting */
+.CodeMirror-activeline-background {
+    background: rgba(232, 242, 254, 0.3);
+}
+
+/* Matching brackets highlighting */
+.CodeMirror-matchingbracket {
+    color: #0b0 !important;
+    background-color: rgba(0, 255, 0, 0.1);
+}
+
+/* Search highlighting */
+.cm-searching {
+    background-color: rgba(255, 255, 0, 0.4);
+    outline: 1px solid rgba(255, 255, 0, 0.8);
+}
+
+/* Animation effects */
+@keyframes highlight-change {
+    0% { background-color: transparent; }
+    30% { background-color: rgba(255, 193, 7, 0.2); }
+    100% { background-color: transparent; }
+}
+
+.code-editor-field .CodeMirror-line.cm-animate-change {
+    animation: highlight-change 1.5s ease;
+}
+
+/* Tab transitions */
+.code-editor-field .code-editor-pane {
+    transition: opacity 0.3s ease;
+}
+
+/* Button hover effects */
+.code-editor-field .btn-light:hover {
+    background-color: #e2e6ea;
+    border-color: #dae0e5;
+}
+
+.dark-mode .code-editor-field .btn-light:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .code-editor-field .code-editor-pane {
+        height: 200px;
+    }
+    
+    .code-editor-field .code-editor-footer {
+        flex-direction: column;
+        align-items: flex-start !important;
+    }
+    
+    .code-editor-field .code-editor-footer small:last-child {
+        margin-top: 0.25rem;
+    }
+    
+    .code-editor-field .nav-tabs .nav-link {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .code-editor-field .nav-tabs .badge {
+        display: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    .code-editor-field {
+        border: 1px solid #000;
+    }
+    
+    .code-editor-field .code-editor-tabs,
+    .code-editor-field .code-editor-footer {
+        display: none;
+    }
+    
+    .code-editor-field .CodeMirror {
+        border: none;
+    }
+}
