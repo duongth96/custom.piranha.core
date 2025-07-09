@@ -22,4 +22,8 @@
     <Folder Include="wwwroot\sites\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\DylanLo.SuperAdmin\DylanLo.SuperAdmin.csproj" />
+  </ItemGroup>
+
 </Project>

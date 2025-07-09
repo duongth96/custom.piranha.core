@@ -9,64 +9,26 @@
  * using CodeMirror for syntax highlighting and code completion.
  */
 Vue.component("code-editor-field", {
-    props: ["uid", "model", "meta"],
+    props: ["uid", "model", "meta", "language"],
     data: function () {
         return {
-            htmlEditor: null,
-            cssEditor: null,
-            jsEditor: null,
-            activeTab: "html",
-            isDirty: false
+            codeEditor: null,
+            isDirty: false,
+            mode: "",
+            charCount: 0,
+            lineCount: 0
         };
     },
     methods: {
         /**
-         * Sets the active tab and refreshes the corresponding editor
-         * @param {string} tab - The tab to activate ("html", "css", or "js")
-         */
-        setTab: function (tab) {
-            this.activeTab = tab;
-            this.$nextTick(() => {
-                if (tab === "html" && this.htmlEditor) {
-                    this.htmlEditor.refresh();
-                    this.htmlEditor.focus();
-                } else if (tab === "css" && this.cssEditor) {
-                    this.cssEditor.refresh();
-                    this.cssEditor.focus();
-                } else if (tab === "js" && this.jsEditor) {
-                    this.jsEditor.refresh();
-                    this.jsEditor.focus();
-                }
-            });
-        },
-        
-        /**
-         * Handles changes to the HTML editor
+         * Handles changes to the editor
          * @param {CodeMirror} cm - The CodeMirror instance
          */
-        onHtmlChange: function (cm) {
-            this.model.value.html = cm.getValue();
+        onChange: function (cm) {
+            this.model.value = cm.getValue();
             this.isDirty = true;
-            this.notifyChange();
-        },
-        
-        /**
-         * Handles changes to the CSS editor
-         * @param {CodeMirror} cm - The CodeMirror instance
-         */
-        onCssChange: function (cm) {
-            this.model.value.css = cm.getValue();
-            this.isDirty = true;
-            this.notifyChange();
-        },
-        
-        /**
-         * Handles changes to the JavaScript editor
-         * @param {CodeMirror} cm - The CodeMirror instance
-         */
-        onJsChange: function (cm) {
-            this.model.value.js = cm.getValue();
-            this.isDirty = true;
+            this.charCount = cm.getValue().length;
+            this.lineCount = cm.lineCount();
             this.notifyChange();
         },
         
@@ -78,95 +40,66 @@ Vue.component("code-editor-field", {
             if (this.meta && this.meta.notifyChange) {
                 this.$emit('update-title', {
                     uid: this.uid,
-                    title: this.model.value.html ? 'HTML, CSS, JS' : ''
+                    title: this.model.value ? this.language.toUpperCase() : ''
                 });
             }
         },
         
         /**
-         * Formats the code in the active editor
+         * Formats the code in the editor
          */
         formatCode: function () {
-            let editor = null;
-            
-            if (this.activeTab === "html" && this.htmlEditor) {
-                editor = this.htmlEditor;
-            } else if (this.activeTab === "css" && this.cssEditor) {
-                editor = this.cssEditor;
-            } else if (this.activeTab === "js" && this.jsEditor) {
-                editor = this.jsEditor;
-            }
-            
-            if (editor) {
-                // Get the current content
-                const content = editor.getValue();
+            if (this.codeEditor) {
+                // Apply basic indentation formatting
+                const totalLines = this.codeEditor.lineCount();
+                this.codeEditor.operation(() => {
+                    for (let i = 0; i < totalLines; i++) {
+                        this.codeEditor.indentLine(i);
+                    }
+                });
                 
-                try {
-                    // Format the content based on the active tab
-                    let formattedContent = content;
-                    
-                    // Apply basic indentation formatting
-                    const totalLines = editor.lineCount();
-                    editor.operation(() => {
-                        for (let i = 0; i < totalLines; i++) {
-                            editor.indentLine(i);
-                        }
-                    });
-                    
-                    // Notify that the content has changed
-                    this.isDirty = true;
-                } catch (e) {
-                    console.error("Error formatting code:", e);
-                }
+                // Notify that the content has changed
+                this.isDirty = true;
+            }
+        },
+        
+        /**
+         * Sets the editor mode based on the language prop
+         */
+        setMode: function () {
+            switch (this.language) {
+                case "html":
+                    this.mode = "htmlmixed";
+                    break;
+                case "css":
+                    this.mode = "css";
+                    break;
+                case "js":
+                    this.mode = "javascript";
+                    break;
+                case "xml":
+                    this.mode = "xml";
+                    break;
+                default:
+                    this.mode = ""; // Plain text or other default
             }
         }
     },
     computed: {
         /**
-         * Checks if all editors are empty
-         * @returns {boolean} True if all editors are empty
+         * Checks if the editor is empty
+         * @returns {boolean} True if the editor is empty
          */
         isEmpty: function () {
-            return !this.model.value.html && !this.model.value.css && !this.model.value.js;
-        },
-        
-        /**
-         * Gets the character count for the active editor
-         * @returns {number} The number of characters in the active editor
-         */
-        charCount: function () {
-            if (this.activeTab === "html" && this.model.value.html) {
-                return this.model.value.html.length;
-            } else if (this.activeTab === "css" && this.model.value.css) {
-                return this.model.value.css.length;
-            } else if (this.activeTab === "js" && this.model.value.js) {
-                return this.model.value.js.length;
-            }
-            return 0;
-        },
-        
-        /**
-         * Gets the line count for the active editor
-         * @returns {number} The number of lines in the active editor
-         */
-        lineCount: function () {
-            let editor = null;
-            
-            if (this.activeTab === "html" && this.htmlEditor) {
-                editor = this.htmlEditor;
-            } else if (this.activeTab === "css" && this.cssEditor) {
-                editor = this.cssEditor;
-            } else if (this.activeTab === "js" && this.jsEditor) {
-                editor = this.jsEditor;
-            }
-            
-            return editor ? editor.lineCount() : 0;
+            return !this.model.value;
         }
     },
     /**
      * Initializes the component when it's mounted
      */
     mounted: function () {
+        this.setMode();
+
         // Common CodeMirror options
         const commonOptions = {
             lineNumbers: true,
@@ -177,63 +110,37 @@ Vue.component("code-editor-field", {
             lineWrapping: true,
             autoCloseBrackets: true,
             matchBrackets: true,
+            mode: this.mode,
             extraKeys: { 
                 "Ctrl-Space": "autocomplete",
                 "Ctrl-F": "findPersistent",
                 "Ctrl-/": (cm) => {
-                    // Toggle comment
-                    const selection = cm.getSelection();
-                    if (selection.trim().startsWith('//') || selection.trim().startsWith('/*')) {
-                        cm.uncomment(cm.getCursor("from"), cm.getCursor("to"));
-                    } else {
-                        cm.lineComment(cm.getCursor("from"), cm.getCursor("to"));
+                    // Comment/uncomment selected lines
+                    const ranges = cm.listSelections();
+                    for (let i = 0; i < ranges.length; i++) {
+                        const range = ranges[i];
+                        cm.toggleComment(range.from, range.to);
                     }
-                },
-                "F11": (cm) => {
-                    // Toggle fullscreen
-                    cm.setOption("fullScreen", !cm.getOption("fullScreen"));
-                },
-                "Esc": (cm) => {
-                    // Exit fullscreen
-                    if (cm.getOption("fullScreen")) cm.setOption("fullScreen", false);
                 }
             }
         };
 
-        // Initialize CodeMirror for HTML
-        this.htmlEditor = CodeMirror.fromTextArea(document.getElementById(this.uid + "-html"), {
-            ...commonOptions,
-            mode: "htmlmixed",
-            autoCloseTags: true
+        // Initialize CodeMirror for the single editor
+        this.codeEditor = CodeMirror.fromTextArea(document.getElementById(this.uid + "-code"), {
+            ...commonOptions
         });
-        this.htmlEditor.on("change", this.onHtmlChange);
+        this.codeEditor.on("change", this.onChange);
 
-        // Initialize CodeMirror for CSS
-        this.cssEditor = CodeMirror.fromTextArea(document.getElementById(this.uid + "-css"), {
-            ...commonOptions,
-            mode: "css"
-        });
-        this.cssEditor.on("change", this.onCssChange);
-
-        // Initialize CodeMirror for JavaScript
-        this.jsEditor = CodeMirror.fromTextArea(document.getElementById(this.uid + "-js"), {
-            ...commonOptions,
-            mode: "javascript"
-        });
-        this.jsEditor.on("change", this.onJsChange);
-
-        // Set initial values
-        this.htmlEditor.setValue(this.model.value.html || "");
-        this.cssEditor.setValue(this.model.value.css || "");
-        this.jsEditor.setValue(this.model.value.js || "");
+        // Set initial value
+        this.codeEditor.setValue(this.model.value || "");
         
         // Reset dirty flag after initial setup
         this.isDirty = false;
         
-        // Focus the active editor
+        // Focus the editor
         this.$nextTick(() => {
-            if (this.activeTab === "html" && this.htmlEditor) {
-                this.htmlEditor.focus();
+            if (this.codeEditor) {
+                this.codeEditor.focus();
             }
         });
     },
@@ -242,77 +149,32 @@ Vue.component("code-editor-field", {
      * Cleans up resources when the component is destroyed
      */
     beforeDestroy: function () {
-        // Clean up CodeMirror instances
-        if (this.htmlEditor) {
-            this.htmlEditor.off("change", this.onHtmlChange);
-            this.htmlEditor.toTextArea();
-            this.htmlEditor = null;
-        }
-        if (this.cssEditor) {
-            this.cssEditor.off("change", this.onCssChange);
-            this.cssEditor.toTextArea();
-            this.cssEditor = null;
-        }
-        if (this.jsEditor) {
-            this.jsEditor.off("change", this.onJsChange);
-            this.jsEditor.toTextArea();
-            this.jsEditor = null;
+        // Clean up CodeMirror instance
+        if (this.codeEditor) {
+            this.codeEditor.off("change", this.onChange);
+            this.codeEditor.toTextArea();
+            this.codeEditor = null;
         }
     },
     template: `
         <div class="code-editor-field" :class="{ empty: isEmpty, 'is-dirty': isDirty }">
-            <div class="code-editor-tabs">
-                <ul class="nav nav-tabs">
-                    <li class="nav-item">
-                        <a class="nav-link" :class="{ active: activeTab === 'html' }" href="#" @click.prevent="setTab('html')">
-                            <i class="fas fa-code"></i> HTML
-                            <span v-if="model.value.html" class="badge badge-light">{{ model.value.html.split('\n').length }}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" :class="{ active: activeTab === 'css' }" href="#" @click.prevent="setTab('css')">
-                            <i class="fas fa-paint-brush"></i> CSS
-                            <span v-if="model.value.css" class="badge badge-light">{{ model.value.css.split('\n').length }}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" :class="{ active: activeTab === 'js' }" href="#" @click.prevent="setTab('js')">
-                            <i class="fab fa-js"></i> JavaScript
-                            <span v-if="model.value.js" class="badge badge-light">{{ model.value.js.split('\n').length }}</span>
-                        </a>
-                    </li>
-                    <li class="nav-item ml-auto">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-light" @click.prevent="formatCode()" title="Format Code">
-                                <i class="fas fa-indent"></i>
-                            </button>
-                        </div>
-                    </li>
-                </ul>
+            <div class="code-editor-header">
+                <button type="button" class="btn btn-sm btn-light" @click.prevent="formatCode()" title="Format Code">
+                    <i class="fas fa-indent"></i> Format Code
+                </button>
             </div>
             <div class="code-editor-content">
-                <div class="code-editor-pane" v-show="activeTab === 'html'">
-                    <textarea :id="uid + '-html'" v-model="model.value.html"></textarea>
-                </div>
-                <div class="code-editor-pane" v-show="activeTab === 'css'">
-                    <textarea :id="uid + '-css'" v-model="model.value.css"></textarea>
-                </div>
-                <div class="code-editor-pane" v-show="activeTab === 'js'">
-                    <textarea :id="uid + '-js'" v-model="model.value.js"></textarea>
-                </div>
+                <textarea :id="uid + '-code'" v-model="model.value"></textarea>
             </div>
             <div class="code-editor-footer">
                 <div class="d-flex justify-content-between align-items-center px-2 py-1">
                     <small class="text-muted">
-                        <span v-if="activeTab === 'html'">HTML</span>
-                        <span v-else-if="activeTab === 'css'">CSS</span>
-                        <span v-else-if="activeTab === 'js'">JavaScript</span>
-                        | Line: {{ lineCount }} | Characters: {{ charCount }}
+                        {{ language.toUpperCase() }} | Line: {{ lineCount }} | Characters: {{ charCount }}
                     </small>
                     <small class="text-muted">
                         <kbd>Ctrl+Space</kbd>: Autocomplete | 
                         <kbd>Ctrl+F</kbd>: Find | 
-                        <kbd>Ctrl+/</kbd>: Comment | 
+                        <kbd>Ctrl/</kbd>: Comment | 
                         <kbd>F11</kbd>: Fullscreen
                     </small>
                 </div>

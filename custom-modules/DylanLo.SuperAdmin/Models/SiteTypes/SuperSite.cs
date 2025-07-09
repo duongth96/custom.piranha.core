@@ -3,6 +3,7 @@ using Piranha.Models;
 using DylanLo.SuperAdmin.Fields;
 using Piranha.Extend;
 using Piranha.Extend.Fields;
+using DylanLo.SuperAdmin.Blocks.Meta;
 
 namespace DylanLo.SuperAdmin.Models.SiteTypes;
 
@@ -31,7 +32,7 @@ public class SuperSite : SiteContent<SuperSite>
         /// <summary>
         /// Gets or sets the HTML template for the header.
         /// </summary>
-        [Field(Title = "Header Template", Description = "HTML, CSS, and JavaScript for the site header")]
+        [Field(Title = "Header Template", Description = "HTML, CSS, and JavaScript for the site header", Placeholder = "HTML")]
         public CodeEditorField Template { get; set; }
 
         /// <summary>
@@ -118,50 +119,6 @@ public class SuperSite : SiteContent<SuperSite>
     }
     #endregion
 
-    #region SEO Settings
-    /// <summary>
-    /// Gets or sets the SEO settings for the site.
-    /// </summary>
-    [Region(Title = "SEO Settings", Display = RegionDisplayMode.Setting)]
-    public SeoSettingsRegion SeoSettings { get; set; }
-
-    /// <summary>
-    /// SEO settings region with meta tags and search engine configuration.
-    /// </summary>
-    public class SeoSettingsRegion
-    {
-        /// <summary>
-        /// Gets or sets the default meta description.
-        /// </summary>
-        [Field(Title = "Default Meta Description", Description = "Default description used when a page doesn't have a specific one")]
-        public TextField DefaultMetaDescription { get; set; }
-
-        /// <summary>
-        /// Gets or sets the default meta keywords.
-        /// </summary>
-        [Field(Title = "Default Meta Keywords", Description = "Default keywords used when a page doesn't have specific ones")]
-        public StringField DefaultMetaKeywords { get; set; }
-
-        /// <summary>
-        /// Gets or sets the custom meta tags template.
-        /// </summary>
-        [Field(Title = "Custom Meta Tags", Description = "Add custom meta tags using HTML")]
-        public CodeEditorField CustomMetaTags { get; set; }
-
-        /// <summary>
-        /// Gets or sets whether to enable Open Graph tags.
-        /// </summary>
-        [Field(Title = "Enable Open Graph Tags")]
-        public CheckBoxField EnableOpenGraph { get; set; }
-
-        /// <summary>
-        /// Gets or sets whether to enable Twitter Card tags.
-        /// </summary>
-        [Field(Title = "Enable Twitter Cards")]
-        public CheckBoxField EnableTwitterCards { get; set; }
-    }
-    #endregion
-
     #region Theme Customization
     /// <summary>
     /// Gets or sets the theme customization options.
@@ -199,22 +156,10 @@ public class SuperSite : SiteContent<SuperSite>
         public StringField TextColor { get; set; }
 
         /// <summary>
-        /// Gets or sets the custom CSS variables.
+        /// Gets or sets the custom CSS/JS files.
         /// </summary>
-        [Field(Title = "Custom CSS Variables", Description = "Define custom CSS variables for theme customization")]
-        public CodeEditorField CustomCssVariables { get; set; }
-
-        /// <summary>
-        /// Gets or sets the font family for headings.
-        /// </summary>
-        [Field(Title = "Heading Font")]
-        public StringField HeadingFont { get; set; }
-
-        /// <summary>
-        /// Gets or sets the font family for body text.
-        /// </summary>
-        [Field(Title = "Body Font")]
-        public StringField BodyFont { get; set; }
+        [Field(Title = "Custom CSS/JS files", Description = "Define custom CSS/JS files for theme customization")]
+        public SiteFilesUploaderField CustomCssJsFiles { get; set; }
     }
     #endregion
 }

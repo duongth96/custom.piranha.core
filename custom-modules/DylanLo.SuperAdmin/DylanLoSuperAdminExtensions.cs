@@ -65,7 +65,7 @@ public static class DylanLoSuperAdminExtensions
         return builder.UseStaticFiles(new StaticFileOptions
         {
             FileProvider = new EmbeddedFileProvider(typeof(Module).Assembly, "DylanLo.SuperAdmin.assets.dist"),
-            RequestPath = "/manager/DylanLo.SuperAdmin"
+            RequestPath = "/manager/DylanLoSuperAdmin"
         });
     }
 

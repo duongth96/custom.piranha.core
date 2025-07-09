@@ -19,6 +19,7 @@ builder.AddPiranha(options =>
 
     options.UseCms();
     options.UseManager();
+    options.UseDylanLoSuperAdmin();
 
     options.UseFileStorage(naming: Piranha.Local.FileStorageNaming.UniqueFolderNames);
     options.UseImageSharp();
@@ -28,6 +29,7 @@ builder.AddPiranha(options =>
     var connectionString = builder.Configuration.GetConnectionString("piranha");
     options.UseEF<SQLiteDb>(db => db.UseSqlite(connectionString));
     options.UseIdentityWithSeed<IdentitySQLiteDb>(db => db.UseSqlite(connectionString));
+
 
     /**
      * Here you can configure the different permissions
@@ -61,6 +63,7 @@ app.UsePiranha(options =>
 
     // Build content types
     new ContentTypeBuilder(options.Api)
+        .AddType(typeof(DylanLo.SuperAdmin.Models.SiteTypes.SuperSite))
         .AddAssembly(typeof(Program).Assembly)
         .Build()
         .DeleteOrphans();
@@ -71,6 +74,7 @@ app.UsePiranha(options =>
     options.UseManager();
     options.UseTinyMCE();
     options.UseIdentity();
+    options.UseDylanLoSuperAdmin();
 });
 
 app.Run();

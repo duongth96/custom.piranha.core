@@ -11,13 +11,13 @@ namespace DylanLo.SuperAdmin.Services
     /// <summary>
     /// Manages static files for a site, such as CSS and JavaScript files.
     /// </summary>
-    public class SiteStaticFileService
+    public class SuperSiteConfigService
     {
 
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWebHostEnvironment _env;
 
-        public SiteStaticFileService(
+        public SuperSiteConfigService(
             IHttpContextAccessor httpContextAccessor,
             IWebHostEnvironment env)
         {
@@ -32,7 +32,7 @@ namespace DylanLo.SuperAdmin.Services
         /// <param name="files"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task SaveFiles(string siteId, IEnumerable<IFormFile> files)
+        public Task SaveStaticFiles(string siteId, IEnumerable<IFormFile> files)
         {
 
             if (string.IsNullOrEmpty(siteId)) throw new ArgumentException("Site ID cannot be null or empty.", nameof(siteId));

@@ -15,16 +15,9 @@ namespace DylanLo.SuperAdmin.Fields;
 /// development tools or content management systems. It provides a container for managing code snippets in multiple
 /// languages.</remarks>
 [FieldType(Name = "Code Editor", Shorthand = "codeeditor", Component = "code-editor-field")]
-public class CodeEditorField : SimpleField<CodeEditorField.CodeEditor>
+public class CodeEditorField : SimpleField<string>
 {
-    public CodeEditor Value { get; set; } = new CodeEditor();
+    public string Value { get; set; } = string.Empty;
 
-    public class CodeEditor
-    {
-        // Placeholder for the actual implementation of the CodeEditor class
-        // This class should handle the logic for the code editor field, such as rendering and validation.
-        public string Html { get; set; }
-        public string Css { get; set; }
-        public string Js { get; set; }
-    }
+    
 }

@@ -19,19 +19,4 @@ public class CodeEditorBlock : Block
     /// Gets or sets the code editor field containing HTML, CSS, and JavaScript code.
     /// </summary>
     public CodeEditorField Code { get; set; } = new CodeEditorField();
-
-    /// <summary>
-    /// Gets or sets a title for this code snippet.
-    /// </summary>
-    public StringField Title { get; set; } = new StringField();
-
-    /// <summary>
-    /// Gets or sets a description for this code snippet.
-    /// </summary>
-    public TextField Description { get; set; } = new TextField();
-
-    /// <summary>
-    /// Gets or sets whether the code should be rendered directly when the page is displayed.
-    /// </summary>
-    public CheckBoxField RenderDirectly { get; set; } = new CheckBoxField();
 }

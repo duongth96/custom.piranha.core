@@ -1,5 +1,6 @@
 @model DylanLo.SuperAdmin.Blocks.CodeEditorBlock
-@{
+@nameof(DylanLo.SuperAdmin.Blocks.CodeEditorBlock)
+@* @{
     var hasHtml = !string.IsNullOrWhiteSpace(Model.Code.Value.Html);
     var hasCss = !string.IsNullOrWhiteSpace(Model.Code.Value.Css);
     var hasJs = !string.IsNullOrWhiteSpace(Model.Code.Value.Js);
@@ -93,4 +94,4 @@
             </div>
         </div>
     }
-</div>
+</div> *@

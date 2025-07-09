@@ -181,7 +181,7 @@ Vue.component("upload-file-field", {
     template: `
         <div class="upload-file-field" :class="{ 'is-dirty': isDirty }">
             <div v-if="!model.value.filename" class="upload-placeholder">
-                <button v-if="!uploading" class="btn btn-primary" @click="selectFile">
+                <button v-if="!uploading" class="btn btn-primary" @click="selectFile" type="button">
                     <i class="fas fa-upload"></i> Upload File
                 </button>
                 <div v-else class="upload-progress">

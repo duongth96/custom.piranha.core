@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
   </PropertyGroup>
@@ -20,11 +20,11 @@
     <Folder Include="assets\dist\blocks\" />
     <Folder Include="assets\dist\css\" />
     <Folder Include="assets\dist\js\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\core\Piranha.AttributeBuilder\Piranha.AttributeBuilder.csproj" />
+    <ProjectReference Include="..\..\core\Piranha.Manager\Piranha.Manager.csproj" />
   </ItemGroup>
 
 </Project>
