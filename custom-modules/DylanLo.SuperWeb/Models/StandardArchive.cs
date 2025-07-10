@@ -1,4 +1,5 @@
 using Piranha.AttributeBuilder;
+using Piranha.Extend;
 using Piranha.Models;
 
 namespace DylanLo.SuperWeb.Models;
@@ -12,4 +13,6 @@ namespace DylanLo.SuperWeb.Models;
 [PageType(Title = "Standard archive", IsArchive = true)]
 public class StandardArchive : Page<StandardArchive>
 {
+    [Region(Title = "Config")]
+    public PageSettingRegion Config { get; set; }
 }

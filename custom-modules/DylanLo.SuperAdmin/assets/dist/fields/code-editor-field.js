@@ -13,6 +13,7 @@ Vue.component("code-editor-field", {
     data: function () {
         return {
             codeEditor: null,
+            initialValue: this.model.value || "", // Set initial value from model
             isDirty: false,
             mode: "",
             charCount: 0,
@@ -40,7 +41,7 @@ Vue.component("code-editor-field", {
             if (this.meta && this.meta.notifyChange) {
                 this.$emit('update-title', {
                     uid: this.uid,
-                    title: this.model.value ? this.language.toUpperCase() : ''
+                    title: this.model.value && this.language ? this.language.toUpperCase() : ''
                 });
             }
         },
@@ -67,7 +68,7 @@ Vue.component("code-editor-field", {
          * Sets the editor mode based on the language prop
          */
         setMode: function () {
-            switch (this.language) {
+            switch (this.meta.placeholder) {
                 case "html":
                     this.mode = "htmlmixed";
                     break;
@@ -98,7 +99,23 @@ Vue.component("code-editor-field", {
      * Initializes the component when it's mounted
      */
     mounted: function () {
+        
         this.setMode();
+
+        this.$watch('model.value', (newValue) => {
+            if (this.codeEditor && newValue !== this.codeEditor.getValue()) {
+                this.codeEditor.setValue(newValue || "");
+            }
+        });
+
+        this.$watch('language', (newLanguage, oldLanguage) => {
+            if (newLanguage !== oldLanguage) {
+                this.setMode();
+                if (this.codeEditor) {
+                    this.codeEditor.setOption("mode", this.mode);
+                }
+            }
+        });
 
         // Common CodeMirror options
         const commonOptions = {
@@ -126,21 +143,38 @@ Vue.component("code-editor-field", {
         };
 
         // Initialize CodeMirror for the single editor
-        this.codeEditor = CodeMirror.fromTextArea(document.getElementById(this.uid + "-code"), {
-            ...commonOptions
-        });
-        this.codeEditor.on("change", this.onChange);
+        this.$nextTick(async () => {
+            // Wait for DOM to be fully updated
+            await Vue.nextTick();
+            
+            let el = document.getElementById(this.uid + '-editor');
 
-        // Set initial value
-        this.codeEditor.setValue(this.model.value || "");
-        
-        // Reset dirty flag after initial setup
-        this.isDirty = false;
-        
-        // Focus the editor
-        this.$nextTick(() => {
-            if (this.codeEditor) {
-                this.codeEditor.focus();
+            if (!el) {
+                console.warn('Code editor textarea element not found');
+                return;
+            }
+
+            try {
+                this.codeEditor = CodeMirror.fromTextArea(el, {
+                    ...commonOptions
+                });
+                
+                this.codeEditor.on("change", this.onChange);
+
+                // Set initial value
+                this.codeEditor.setValue(this.initialValue);
+
+                // Set initial character and line counts  
+                this.charCount = this.codeEditor.getValue().length;
+                this.lineCount = this.codeEditor.lineCount();
+
+                // Reset dirty flag after initial setup
+                this.isDirty = false;
+
+                // Focus the editor
+                //this.codeEditor.focus();
+            } catch (err) {
+                console.error('Error initializing code editor:', err);
             }
         });
     },
@@ -157,28 +191,9 @@ Vue.component("code-editor-field", {
         }
     },
     template: `
-        <div class="code-editor-field" :class="{ empty: isEmpty, 'is-dirty': isDirty }">
-            <div class="code-editor-header">
-                <button type="button" class="btn btn-sm btn-light" @click.prevent="formatCode()" title="Format Code">
-                    <i class="fas fa-indent"></i> Format Code
-                </button>
-            </div>
-            <div class="code-editor-content">
-                <textarea :id="uid + '-code'" v-model="model.value"></textarea>
-            </div>
-            <div class="code-editor-footer">
-                <div class="d-flex justify-content-between align-items-center px-2 py-1">
-                    <small class="text-muted">
-                        {{ language.toUpperCase() }} | Line: {{ lineCount }} | Characters: {{ charCount }}
-                    </small>
-                    <small class="text-muted">
-                        <kbd>Ctrl+Space</kbd>: Autocomplete | 
-                        <kbd>Ctrl+F</kbd>: Find | 
-                        <kbd>Ctrl/</kbd>: Comment | 
-                        <kbd>F11</kbd>: Fullscreen
-                    </small>
-                </div>
-            </div>
+        <div class="code-editor-field">
+            <textarea :id="uid + '-editor'"></textarea>
         </div>
+
     `
 });

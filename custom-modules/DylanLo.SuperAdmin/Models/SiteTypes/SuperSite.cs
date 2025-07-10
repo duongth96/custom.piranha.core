@@ -32,14 +32,8 @@ public class SuperSite : SiteContent<SuperSite>
         /// <summary>
         /// Gets or sets the HTML template for the header.
         /// </summary>
-        [Field(Title = "Header Template", Description = "HTML, CSS, and JavaScript for the site header", Placeholder = "HTML")]
+        [Field(Title = "Template", Description = "HTML, CSS, and JavaScript for the site header", Placeholder = "HTML")]
         public CodeEditorField Template { get; set; }
-
-        /// <summary>
-        /// Gets or sets whether the header is sticky.
-        /// </summary>
-        [Field(Title = "Sticky Header")]
-        public CheckBoxField IsSticky { get; set; }
 
         /// <summary>
         /// Gets or sets the header logo.
@@ -64,7 +58,7 @@ public class SuperSite : SiteContent<SuperSite>
         /// <summary>
         /// Gets or sets the HTML template for the footer.
         /// </summary>
-        [Field(Title = "Footer Template", Description = "HTML, CSS, and JavaScript for the site footer")]
+        [Field(Title = "Template", Description = "HTML, CSS, and JavaScript for the site footer")]
         public CodeEditorField Template { get; set; }
 
         /// <summary>
@@ -131,30 +125,6 @@ public class SuperSite : SiteContent<SuperSite>
     /// </summary>
     public class ThemeCustomizationRegion
     {
-        /// <summary>
-        /// Gets or sets the primary color.
-        /// </summary>
-        [Field(Title = "Primary Color")]
-        public StringField PrimaryColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the secondary color.
-        /// </summary>
-        [Field(Title = "Secondary Color")]
-        public StringField SecondaryColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the background color.
-        /// </summary>
-        [Field(Title = "Background Color")]
-        public StringField BackgroundColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets the text color.
-        /// </summary>
-        [Field(Title = "Text Color")]
-        public StringField TextColor { get; set; }
-
         /// <summary>
         /// Gets or sets the custom CSS/JS files.
         /// </summary>

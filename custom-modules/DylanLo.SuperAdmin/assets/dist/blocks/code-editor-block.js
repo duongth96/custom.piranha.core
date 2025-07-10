@@ -110,8 +110,9 @@ Vue.component("code-editor-block", {
                         </button>
                     </div>
                     <code-editor-field 
-                        v-model="model.code.value"
-                        :label="'Code'"
+                        :uid="uid + '-' + selectedLanguage"
+                        :model="model.code"
+                        :meta="{ notifyChange: false }"
                         :language="selectedLanguage"
                     ></code-editor-field>
                 </div>
