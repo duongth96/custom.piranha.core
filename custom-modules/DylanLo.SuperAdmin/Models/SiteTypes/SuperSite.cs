@@ -32,7 +32,7 @@ public class SuperSite : SiteContent<SuperSite>
         /// <summary>
         /// Gets or sets the HTML template for the header.
         /// </summary>
-        [Field(Title = "Template", Description = "HTML, CSS, and JavaScript for the site header", Placeholder = "HTML")]
+        [Field(Title = "Template", Description = "HTML, template for the site header", Placeholder = "html")]
         public CodeEditorField Template { get; set; }
 
         /// <summary>
@@ -58,7 +58,7 @@ public class SuperSite : SiteContent<SuperSite>
         /// <summary>
         /// Gets or sets the HTML template for the footer.
         /// </summary>
-        [Field(Title = "Template", Description = "HTML, CSS, and JavaScript for the site footer")]
+        [Field(Title = "Template", Description = "HTML, template for the site footer", Placeholder ="html")]
         public CodeEditorField Template { get; set; }
 
         /// <summary>
@@ -87,12 +87,6 @@ public class SuperSite : SiteContent<SuperSite>
     /// </summary>
     public class GlobalSettingsRegion
     {
-        /// <summary>
-        /// Gets or sets the custom CSS and JavaScript for the entire site.
-        /// </summary>
-        [Field(Title = "Custom CSS/JS", Description = "Add custom CSS and JavaScript that will be applied site-wide")]
-        public CodeEditorField CustomCode { get; set; }
-
         /// <summary>
         /// Gets or sets the site favicon.
         /// </summary>

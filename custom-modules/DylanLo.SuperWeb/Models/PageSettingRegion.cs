@@ -7,7 +7,7 @@ namespace DylanLo.SuperWeb.Models
 {
     public class PageSettingRegion
     {
-        [Field(Title = "Template", Placeholder ="HTML")]
+        [Field(Title = "Template", Placeholder ="html")]
         public CodeEditorField Template { get; set; }
     }
 }
