@@ -1,0 +1,83 @@
+.code-editor-block .title-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.code-editor-block .card-title {
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.code-editor-block .card-subtitle {
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    font-size: 0.875rem;
+}
+
+.code-editor-block .code-editor-wrapper {
+    transition: all 0.3s ease;
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.code-editor-block .code-editor-wrapper.expanded {
+    max-height: 800px;
+}
+
+.code-editor-block .code-editor-field {
+    margin-bottom: 0;
+}
+
+/* Dark mode support */
+.dark-mode .code-editor-block .card {
+    background-color: #343a40;
+    border-color: #495057;
+}
+
+.dark-mode .code-editor-block .card-header,
+.dark-mode .code-editor-block .card-footer {
+    background-color: #2b3035;
+    border-color: #495057;
+}
+
+.dark-mode .code-editor-block .card-title,
+.dark-mode .code-editor-block .form-group label {
+    color: #e9ecef;
+}
+
+.dark-mode .code-editor-block .form-control {
+    background-color: #2b3035;
+    border-color: #495057;
+    color: #e9ecef;
+}
+
+.dark-mode .code-editor-block .form-control:focus {
+    background-color: #2b3035;
+    border-color: #80bdff;
+    color: #e9ecef;
+}
+
+.dark-mode .code-editor-block .btn-light {
+    background-color: #495057;
+    border-color: #6c757d;
+    color: #e9ecef;
+}
+
+.dark-mode .code-editor-block .btn-light:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .code-editor-block .code-editor-wrapper {
+        max-height: 300px;
+    }
+    
+    .code-editor-block .code-editor-wrapper.expanded {
+        max-height: 600px;
+    }
+}
